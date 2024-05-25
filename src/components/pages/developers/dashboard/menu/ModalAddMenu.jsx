@@ -166,11 +166,12 @@ const ModalAddmenu = ({itemEdit, position}) => {
                                             type="text"
                                             name="menu_category_id">
                                                 {category?.data.map((item, key)=> (
+                                                     item.category_is_active === 1 && (
                                                     <React.Fragment key={key}>
                                                         <option hidden>Select</option>
                                                         <option value={item.category_aid} >{item.category_title}</option>
                                                     </React.Fragment >
-                                                )
+                                                     ))
                                             )} 
                                         </InputSelect>
                                         </div>

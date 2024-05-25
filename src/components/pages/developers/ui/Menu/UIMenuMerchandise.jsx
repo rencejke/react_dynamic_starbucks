@@ -1,24 +1,43 @@
 import React from "react";
-import { merchardise } from "./data";
-import { baseImgUrl } from "../../../../helpers/functions-general";
+import {devBaseImgUrl } from "../../../../helpers/functions-general";
+import useQueryData from "../../../../custom-hook/useQueryData";
+import { StoreContext } from "../../../../../store/StoreContext";
 
 const UIMenuMerchandise = () => {
+  
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: menu,
+  } = useQueryData(
+    "/v1/menu",
+    "get", // method
+    "menu", // key
+  );
+  
+   
   return (
     <div className="mb-10">
       <h4 className="text-xl font-bold mb-10 border-b border-gray-200 py-5">
         Merchandise
       </h4>
-
-      <div className="grid grid-cols-2 gap-5">
-      {merchardise.map((item, key) => (
-        <div className="flex gap-6 items-center " key={key}>
-          <img src={`${baseImgUrl}/${item.img}`} className='rounded-full size-[110px]' alt="" />
-          <h5 className="text-base font-bold">{item.title}</h5>
+  
+    
+        <div className="grid grid-cols-2 gap-10">
+        {menu?.data.map((item, key) => (
+            item.menu_category_id === 7 && (
+          <div className="flex gap-6 items-center" key={key}>
+          <img src={`${devBaseImgUrl}/${item.menu_image}`} className='rounded-full size-[110px] cursor-pointer' alt="" onClick={()=>handleShowModal(item)}/>
+          <h5 className="text-base font-bold">{item.menu_name}</h5>
+          </div>
+           )))}
         </div>
-          ))}
-      </div>
+     
     </div>
   );
+  
+
 };
 
 export default UIMenuMerchandise;
