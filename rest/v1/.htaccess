@@ -1,0 +1,37 @@
+RewriteEngine On
+# use for authentication
+RewriteCond %{HTTP:Authorization} ^(.+)$
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+Header set Access-Control-Allow-Origin *
+
+#################################### ALL FOR DEVELOPER #################################
+
+RewriteRule ^upload/photo$ core/upload-photo.php [L]
+
+### SETTING ROLES ###
+RewriteRule ^menu$ controllers/menu/menu.php [L]
+RewriteRule ^menu/([0-9]+)$ controllers/menu/menu.php?menuid=$1 [L]
+RewriteRule ^menu/active/([0-9]+)$ controllers/menu/active.php?menuid=$1 [L]
+RewriteRule ^menu/search$ controllers/menu/search.php [L]
+
+### SETTING ROLES ###
+RewriteRule ^category$ controllers/category/category.php [L]
+RewriteRule ^category/([0-9]+)$ controllers/category/category.php?categoryid=$1 [L]
+RewriteRule ^category/active/([0-9]+)$ controllers/category/active.php?categoryid=$1 [L]
+RewriteRule ^category/search$ controllers/category/search.php [L]
+
+
+### SETTING USER###
+RewriteRule ^user$ controllers/user/user.php [L]
+RewriteRule ^user/([0-9]+)$ controllers/user/user.php?userid=$1 [L]
+RewriteRule ^user/active/([0-9]+)$ controllers/user/active.php?userid=$1 [L]
+RewriteRule ^user/search$ controllers/user/search.php [L]
+RewriteRule ^user/password$ controllers/user/set-password.php [L]
+RewriteRule ^user/reset$ controllers/user/reset-password.php [L]
+RewriteRule ^user/login$ controllers/user/login.php [L]
+RewriteRule ^user/token$ controllers/user/token.php [L]
+
+
